@@ -1,10 +1,7 @@
 <?php
 
-
-$conn = new mysqli('localhost', 'root', '', 'ecomarket');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+require_once "db_connection.php";
 
 // Fetch categories from the database
 $sql = "SELECT Cname FROM categories";

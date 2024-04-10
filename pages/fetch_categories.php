@@ -1,17 +1,7 @@
 <?php
-// Database connection code (Replace with your actual connection code)
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecomarket";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+require_once "db_connection.php";
 
 // Fetch categories from the database
 $sql = "SELECT * FROM categories";

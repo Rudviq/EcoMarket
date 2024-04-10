@@ -1,11 +1,7 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', '', 'ecomarket');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+require_once "db_connection.php";
 
 // Fetch product categories from the database
 $sql = "SELECT ProductID, GROUP_CONCAT(CategoryID) AS CategoryIDs FROM productcategories GROUP BY ProductID";

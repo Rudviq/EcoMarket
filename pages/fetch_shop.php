@@ -1,11 +1,6 @@
 <?php
-// Connect to your database (replace dbname, username, password with your actual credentials)
-$conn = new mysqli('localhost', 'root', '', 'ecomarket');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+require_once "db_connection.php";
 
 // SQL query to fetch products
 $sql = "SELECT * FROM products";
