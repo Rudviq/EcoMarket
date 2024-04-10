@@ -21,25 +21,25 @@ function fetchAndDisplayProducts(selectedCategories) {
         .catch(error => console.error('Error fetching products:', error));
     }
 }
-      // Function to display products
-        function displayProducts(products) {
-            const productGrid = document.getElementById('product-grid');
-            productGrid.innerHTML = ''; // Clear existing products from the container
+    // Function to display products
+      function displayProducts(products) {
+          const productGrid = document.getElementById('product-grid');
+          productGrid.innerHTML = ''; // Clear existing products from the container
 
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product-card');
-                productCard.innerHTML = `
-                    <img src="../assets/${product.Image}" alt="${product.Title}">
-                    <h3>${product.Title}</h3>
-                    <p class="description">${product.Description.substring(0, 50)}...</p>
-                    <!--<p class="rating">${product.Rating} Stars</p>--> 
-                    <br>
-                    <p class="price"><a>$</a>${product.Price}</p>
-                `;
-                productGrid.appendChild(productCard);
-            });
-        }
+          products.forEach(product => {
+              const productCard = document.createElement('div');
+              productCard.classList.add('product-card');
+              productCard.innerHTML = `
+                  <img src="../assets/${product.Image}" alt="${product.Title}">
+                  <h3>${product.Title}</h3>
+                  <p class="description">${product.Description.substring(0, 50)}...</p>
+                  <!--<p class="rating">${product.Rating} Stars</p>--> 
+                  <br>
+                  <p class="price"><a>$</a>${product.Price}</p>
+              `;
+              productGrid.appendChild(productCard);
+          });
+      }
   
       // Fetch categories from the server using AJAX
       fetch('fetch_categories.php')
@@ -59,6 +59,7 @@ function fetchAndDisplayProducts(selectedCategories) {
             const label = document.createElement('label');
             label.htmlFor = category.CategoryID; // Assuming CName is unique for each category
             label.textContent = category.CName;
+            label.style.marginLeft = '10px';
             // label.appendChild(document.createTextNode(category.CName)); // Assuming CName is the column name for category name
             
            

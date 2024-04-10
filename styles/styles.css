@@ -19,7 +19,7 @@ body {
 }
 
 .form-container {
-  display: none;
+ 
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -29,9 +29,9 @@ body {
   width: 100%;
 }
 
-.form-container.active {
+/* .form-container.active {
   display: block;
-}
+} */
 
 form {
   display: flex;
@@ -92,3 +92,10 @@ a:hover {
 }
 
 
+.login_err{
+  color:red;
+}
+
+.signup_success{
+  color:green;
+}

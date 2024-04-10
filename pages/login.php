@@ -15,7 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: homePage.html"); // Redirect to dashboard or homepage
         exit;
     } else {
-        $login_err = "Invalid email or password";
+        
+        header("location: login_.php?login_err=Invalid email or password");
+        exit();
     }
+
 }
 ?>
