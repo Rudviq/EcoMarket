@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch products
-$sql = "SELECT * FROM products LIMIT 12";
+$sql = "SELECT * FROM products";
 
 // Execute the query
 $result = $conn->query($sql);

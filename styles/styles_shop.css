@@ -70,7 +70,8 @@
   }
   
   main {
-    padding: 0;
+    display: flex;
+    padding: 0px;
   }
   
   .shop {

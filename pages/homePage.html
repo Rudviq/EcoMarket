@@ -126,6 +126,7 @@
       <div class="container">
         <h2>Our Commitment to Sustainability</h2>
         <p>We believe in promoting sustainable living practices. Learn more about our commitment.</p>
+        <br>
         <a href="#" class="btn">Learn More</a>
       </div>
     </section>
@@ -169,9 +170,9 @@
         const categoryCard = document.createElement('div');
         categoryCard.classList.add('category-card');
         categoryCard.innerHTML = `
-          <img src="../assets/${category.image}" alt="${category.Name}">
+          <img src="../assets/${category.image}" alt="${category.CName}">
           <div class="category-text">
-                    <span><h3>${category.Name}</h3></span>
+                    <span><h3>${category.CName}</h3></span>
           </div>
         `;
         categoryGrid.appendChild(categoryCard);
