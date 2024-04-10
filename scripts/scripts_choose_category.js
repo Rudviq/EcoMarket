@@ -32,8 +32,10 @@ function fetchAndDisplayProducts(selectedCategories) {
                 productCard.innerHTML = `
                     <img src="../assets/${product.Image}" alt="${product.Title}">
                     <h3>${product.Title}</h3>
+                    <p class="description">${product.Description.substring(0, 50)}...</p>
+                    <!--<p class="rating">${product.Rating} Stars</p>--> 
+                    <br>
                     <p class="price"><a>$</a>${product.Price}</p>
-                    <button onclick="addToCart('${product.Title}')">Add to Cart</button>
                 `;
                 productGrid.appendChild(productCard);
             });

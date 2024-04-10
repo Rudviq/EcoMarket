@@ -69,14 +69,11 @@
     color: #333333;
   }
   
-  main {
-    display: flex;
-    padding: 0px;
-  }
+  
   
   .shop {
     text-align: center;
-    padding: 40px 0;
+    padding: 100px 0;
   }
   
   .shop h2 {
@@ -109,6 +106,13 @@
     font-size: 20px;
     color: #333333;
     margin-bottom: 10px;
+  }
+
+  .product-card:hover{
+    background-color: #c8c8c8;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05); /* Increase size by 5% */
+  transition: transform 0.3s ease; /* Add smooth transition */
   }
   
   .product-card .price {
