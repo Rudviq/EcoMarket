@@ -7,11 +7,22 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
 // SQL query to fetch products
-$sql = "SELECT * FROM products LIMIT 12";
+$sql = "SELECT * FROM products P";
+
+// If selected categories are provided, add a WHERE clause to filter products by those categories
+if (isset($_GET['categories'])) {
+    // Fetch selected categories from the query parameters
+        $selectedCategories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : array();
+    $sql .= " INNER JOIN productcategories PC ON PC.ProductID = P.ProductID INNER JOIN Categories C ON C.CategoryID = PC.CategoryID WHERE C.CategoryID IN ('" . implode("', '", $selectedCategories) . "')";
+}
 
 // Execute the query
 $result = $conn->query($sql);
+
+
 
 // Check if there are any products
 if ($result->num_rows > 0) {
