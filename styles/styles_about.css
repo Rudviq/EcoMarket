@@ -1,0 +1,110 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+  }
+  
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    font-size: 24px;
+    color: #333333;
+  }
+  
+  nav ul {
+    list-style: none;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333333;
+  }
+  
+  main {
+    padding: 40px 0;
+  }
+  
+  .about {
+    text-align: center;
+    padding: 60px 0;
+  }
+  
+  .about h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .about p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333333;
+  }
+  
+  footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  /* Creators section */
+.creators {
+    text-align: center;
+    padding: 60px 0;
+  }
+  
+  .creators h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .creator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .creator {
+    text-align: center;
+  }
+  
+  .creator img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .creator h3 {
+    font-size: 18px;
+    color: #333333;
+  }
+  

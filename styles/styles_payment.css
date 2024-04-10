@@ -1,0 +1,126 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    margin: 0;
+}
+
+.logo_title {
+    display: flex;
+    justify-content: center;
+}
+
+.logo_title img {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333333;
+    align-self: center;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333333;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.payment-options {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.payment-options h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the start of the flex container */
+    flex-wrap: wrap;
+}
+
+.payment-option {
+    margin: 0 20px;
+    text-align: center; /* Center align the content */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Align items at the start and end of the container */
+    align-items: center; /* Center align items horizontally */
+    height: 200px; /* Set a fixed height for each payment option */
+}
+
+.payment-option img {
+    width: 150px;
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto; /* Align image at the top */
+}
+
+.payment-option button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Take up full width */
+}
+
+.payment-option button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}

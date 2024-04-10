@@ -1,0 +1,145 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+}
+
+.logo_title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333333;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333333;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.cart {
+    text-align: center;
+}
+
+.cart-items {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* justify-content: center; */
+    gap: 20px;
+}
+
+.cart-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    /* flex-direction: column; */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-item img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 10px;
+    
+    
+}
+.item-details {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+.item-details h3 {
+    margin: 0;
+}
+
+.item-details p {
+    margin: 0;
+}
+/* .cart-item h3 {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.cart-item p {
+    font-size: 16px;
+    color: #007bff;
+    margin-bottom: 15px;
+} */
+
+.total {
+    margin-top: 40px;
+}
+
+.total h3 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    bottom: 0;
+}
