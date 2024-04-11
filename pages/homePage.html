@@ -135,7 +135,7 @@
    <!-- JavaScript to fetch and display products -->
    <script>
     // Fetch products from fetch_products.php using AJAX
-    fetch('fetch_products.php')
+    fetch('fetch_products.php?filter=12')
       .then(response => response.json())
       .then(products => {
         // Get the product-grid element

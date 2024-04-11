@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - EcoMarket: Handcrafted Materials</title>
+  <link rel="stylesheet" href="../styles/styles_shop.css">
+  <link rel="stylesheet" href="../styles/styles_shop1.css">
+  <link rel="stylesheet" href="../styles/styles_product.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo_title">
+      <img src="../assets/logo.png" class="logo">
+      <h1>EcoMarket</h1>
+    </div>
+      <nav>
+        <ul>
+          <li><a href="homePage.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <section class="filters">
+        <div class="container1">
+          <h2>Filters</h2>
+          <h3>Price Range</h3>
+          <select id="price-filter">
+            <option value="default" selected>Default</option>
+            <option value="low-to-high">Price: Low to High</option>
+            <option value="high-to-low">Price: High to Low</option>
+          </select>
+          <h3>Categories</h3>
+          <div id="category-filter">
+            <br>
+           
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="shop">
+      <div class="container2">
+        <div id="product-details">
+            <!-- Product details will be dynamically added here using JavaScript -->
+          </div>
+      </div>
+    </section>
+
+  
+  
+  </main>
+
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 EcoMarket. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="../scripts/scripts_choose_category.js?v=1"></script>
+  <script src="../scripts/product.js"></script>
+</body>
+</html>

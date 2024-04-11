@@ -41,6 +41,14 @@ function displayProducts(products) {
             <br>
             <p class="price"><a>$</a>${product.Price}</p>
         `;
+
+        // Add click event listener to each product grid item
+        productCard.addEventListener('click', () => {
+            console.log("hasudh");
+            // Redirect to product.html with product ID in the URL
+            window.location.href = `product.html?id=${product.ProductID}`;
+        });
+
         productGrid.appendChild(productCard);
     });
 }

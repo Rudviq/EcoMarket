@@ -22,6 +22,9 @@ if(isset($filter)){
     elseif($filter === '2'){
         $sql .= " ORDER BY P.Price DESC";
     }
+    elseif($filter === '12'){
+        $sql .= " LIMIT 12";
+    }
     
 }
 
