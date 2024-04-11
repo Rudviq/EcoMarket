@@ -13,6 +13,18 @@ if (isset($_GET['categories'])) {
     $sql .= " INNER JOIN productcategories PC ON PC.ProductID = P.ProductID INNER JOIN Categories C ON C.CategoryID = PC.CategoryID WHERE C.CategoryID IN ('" . implode("', '", $selectedCategories) . "')";
 }
 
+
+$filter = $_GET['filter'];
+if(isset($filter)){
+    if($filter==='1'){
+        $sql .= " ORDER BY P.Price ASC";
+    }
+    elseif($filter === '2'){
+        $sql .= " ORDER BY P.Price DESC";
+    }
+    
+}
+
 // Execute the query
 $result = $conn->query($sql);
 

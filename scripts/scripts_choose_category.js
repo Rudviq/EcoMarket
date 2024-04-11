@@ -1,9 +1,12 @@
+var filter;
+var selectedCategories = null;
+
 // Function to fetch and display products based on selected categories
-function fetchAndDisplayProducts(selectedCategories) {
+function fetchAndDisplayProducts(selectedCategories,filter) {
     // Fetch products from the server using AJAX
     if(selectedCategories){
         
-        fetch('fetch_products.php?categories=' + selectedCategories.join(','))
+        fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter)
             .then(response => response.json())
             .then(products => {
                 // Display fetched products
@@ -12,7 +15,7 @@ function fetchAndDisplayProducts(selectedCategories) {
             .catch(error => console.error('Error fetching products:', error));
     }
     else{
-        fetch('fetch_products.php')
+        fetch('fetch_products.php?filter='+filter)
         .then(response => response.json())
         .then(products => {
             // Display fetched products
@@ -41,6 +44,25 @@ function displayProducts(products) {
         productGrid.appendChild(productCard);
     });
 }
+
+document.getElementById('price-filter').addEventListener('change', function() {
+  const selectedOption = this.value; // Get the selected option value
+
+  // Fetch and display products based on the selected option
+  if (selectedOption === 'low-to-high') {
+      // Fetch products sorted by price low to high
+      filter = 1;
+      
+  } else if (selectedOption === 'high-to-low') {
+      // Fetch products sorted by price high to low
+      filter=2;
+  } else {
+      // Fetch products with default sorting (e.g., no specific sorting)
+      filter =0;
+  }
+
+  fetchAndDisplayProducts(selectedCategories, filter);
+});
   
 // Fetch categories from the server using AJAX
 fetch('fetch_categories.php')
@@ -71,10 +93,10 @@ fetch('fetch_categories.php')
         const selectedCheckboxes = Array.from(categoryFilter.querySelectorAll('input[type="checkbox"]:checked'));
 
         // Get the values of selected checkboxes
-        const selectedCategories = selectedCheckboxes.map(checkbox => checkbox.value);
+        selectedCategories = selectedCheckboxes.map(checkbox => checkbox.value);
           console.log(selectedCategories);
         // Update displayed products based on selected categories
-        fetchAndDisplayProducts(selectedCategories);
+        fetchAndDisplayProducts(selectedCategories,filter);
       });
 
       // Append checkbox and label to the categoryFilter element
@@ -87,5 +109,5 @@ fetch('fetch_categories.php')
 .catch(error => console.error('Error fetching categories:', error));
 
 // Display all products by default
-fetchAndDisplayProducts(null);
+fetchAndDisplayProducts(null,0);
   
