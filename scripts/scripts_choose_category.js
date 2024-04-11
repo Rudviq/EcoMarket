@@ -4,6 +4,7 @@ var selectedCategories = null;
 // Function to fetch and display products based on selected categories
 function fetchAndDisplayProducts(selectedCategories,filter) {
     // Fetch products from the server using AJAX
+    console.log('Fetching and displaying products...');
     if(selectedCategories){
         
         fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter)
@@ -27,6 +28,7 @@ function fetchAndDisplayProducts(selectedCategories,filter) {
 
 // Function to display products
 function displayProducts(products) {
+    console.log('Displaying products...');
     const productGrid = document.getElementById('product-grid');
     productGrid.innerHTML = ''; // Clear existing products from the container
 
@@ -37,21 +39,61 @@ function displayProducts(products) {
             <img src="../assets/${product.Image}" alt="${product.Title}">
             <h3>${product.Title}</h3>
             <p class="description">${product.Description.substring(0, 50)}...</p>
-            <!--<p class="rating">${product.Rating} Stars</p>--> 
-            <br>
+            <p class="rating" id="product-rating-${product.ProductID}"></p>
             <p class="price"><a>$</a>${product.Price}</p>
         `;
 
         // Add click event listener to each product grid item
         productCard.addEventListener('click', () => {
-            console.log("hasudh");
             // Redirect to product.html with product ID in the URL
             window.location.href = `product.html?id=${product.ProductID}`;
         });
 
         productGrid.appendChild(productCard);
+        const ratingContainer = document.getElementById(`product-rating-${product.ProductID}`);
+        // Calculate and display star rating
+        ratingContainer.innerHTML =generateStarRating(4.5, product.ProductID);
     });
 }
+
+// Function to generate star rating
+// function generateStarRating(rating, productId) {
+//     console.log(`Generating star rating for product ${productId} with rating ${rating}`);
+//     const starsTotal = 5;
+//     const starPercentage = (rating / starsTotal) * 100;
+//     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+//     const ratingContainer = document.getElementById(`product-rating-${productId}`);
+//     ratingContainer.style.width = starPercentageRounded;
+//     ratingContainer.innerHTML = `${rating} Stars`;
+    
+// }
+// Function to generate star rating
+function generateStarRating(rating, productId) {
+    console.log(`Generating star rating for product ${productId} with rating ${rating}`);
+    const starsTotal = 5;
+    const starPercentage = (rating / starsTotal) * 100;
+    console.log(`Star percentage: ${starPercentage}`);
+    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    console.log(`Rounded star percentage: ${starPercentageRounded}`);
+
+    // Create HTML for star rating
+    const starsHTML = `
+    <div class="stars-outer">
+        <div class="stars-inner" style="width: ${starPercentageRounded};"></div>
+    </div>
+    `;
+     
+    return starsHTML;
+    // const ratingContainer = document.getElementById(`product-rating-${productId}`);
+    // console.log(`Rating container:`, ratingContainer);
+    // if (ratingContainer) {
+    //     ratingContainer.style.width = starPercentageRounded;
+    //     // ratingContainer.innerHTML = `${rating} Stars`;
+    // } else {
+    //     console.log(`Error: Rating container not found for product ${productId}`);
+    // }
+}
+
 
 document.getElementById('price-filter').addEventListener('change', function() {
   const selectedOption = this.value; // Get the selected option value

@@ -19,14 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
             <h2>${product.Title}</h2>
             <p>Description: ${product.Description}</p>
             <p class="price">Price: $${product.Price}</p>
-            <p class="rating">Rating: ${product.Rating} Stars</p>
-            <p class="quant">Quantity: <input type=number min="0"></p>
+            <p class="rating" id="product-rating"></p>
+            <p class="quant">Quantity: <input type=number min="0" max="${product.Stock}"></p>
             <button onclick="addToCart(${product.ProductID})">Add to Cart</button>
             <br>
             <p class="avail"> Available Stock:  ${product.Stock}</p>
 
           </div>
         `;
+
+        // Display star rating
+        const ratingContainer = document.getElementById('product-rating');
+        ratingContainer.innerHTML = generateStarRating(4.4);
       })
       .catch(error => console.error('Error fetching product details:', error));
   }
