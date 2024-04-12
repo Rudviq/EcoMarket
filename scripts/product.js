@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p class="rating" id="product-rating"></p>
             <p class="quant">Quantity: <input type=number min="0" max="${product.Stock}"></p>
             <button onclick="addToCart(${product.ProductID})">Add to Cart</button>
+            <button >Continue Shopping</button>
             <br>
             <p class="avail"> Available Stock:  ${product.Stock}</p>
 

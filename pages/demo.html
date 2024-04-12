@@ -3,69 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - EcoMarket: Handcrafted Materials</title>
-  <!-- <link rel="stylesheet" href="../styles/styles_shop.css">
-  <link rel="stylesheet" href="../styles/styles_shop1.css">
-  <link rel="stylesheet" href="../styles/styles_product.css"> -->
-  <link rel="stylesheet" href="../styles/demo.css">
-  <!-- <link rel="stylesheet" href="../styles/stars.css"> -->
-  <!-- <script src="https://kit.fontawesome.com/e42c3fba7d.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+  <title>Comment Section</title>
+  <style>
+    .comment-section {
+      margin-top: 20px;
+    }
+    .comment-header {
+      cursor: pointer;
+    }
+    .comments {
+      display: none;
+    }
+    .comment {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .user-info img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .user-info span {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .comment-text {
+      margin-left: 40px; /* Adjust according to the width of the profile picture */
+    }
+  </style>
 </head>
 <body>
+  <div class="comment-section">
+    <div class="comment-header" onclick="toggleComments()">Show Comments</div>
+    <div class="comments" id="comments">
+      <!-- Comments will be dynamically added here using JavaScript -->
+    </div>
+  </div>
 
-      <div class="app">
-        <div class="ratingd">
-          <div class="rating__average">
-            <h1>4.5</h1>
-            <div class="star-outer">
-              <div class="star-inner">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            </div>
-              <p>290,291</p>
-            </div>
-            <div class="rating__progress">
-              <div class="rating__progress-value">
-                <p>5 <span class="star">&#9733; </span></p>
-                <div class="progress">
-                  <div class="bar"></div>
-                </div>
-                <p>89,783</p>
-              </div>
-              <div class="rating__progress-value">
-                <p>4 <span class="star">&#9733; </span></p>
-                <div class="progress">
-                  <div class="bar"></div>
-                </div>
-                <p>9,346 </p>
-              </div>
-              <div class="rating__progress-value">
-                <p>3 <span class="star">&#9733; </span></p>
-                <div class="progress">
-                  <div class="bar"></div>
-                </div>
-                <p>50,098</p>
-              </div>
-              <div class="rating__progress-value">
-                <p>2 <span class="star">&#9733; </span></p>
-                <div class="progress">
-                  <div class="bar"></div>
-                </div>
-                <p>783</p>
-              </div>
-              <div class="rating__progress-value">
-                <p>1 <span class="star">&#9733; </span></p>
-                <div class="progress">
-                  <div class="bar"></div>
-                </div>
-                <p>12,000</p>
-              </div>
-            </div>
+  <script>
+    function toggleComments() {
+      var commentsDiv = document.getElementById('comments');
+      commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Function to add a comment
+    function addComment(user, rating, comment) {
+      var commentsDiv = document.getElementById('comments');
+      var commentElement = document.createElement('div');
+      commentElement.classList.add('comment');
+      commentElement.innerHTML = `
+        <div class="user-info">
+          <img src="user-profile-pic.jpg" alt="User Profile Picture">
+          <span>${user}</span>
+          <span>${rating} Stars</span>
         </div>
-      </div>
-  
-  <!-- <script src="../scripts/scripts_choose_category.js?v=1"></script>
-  <script src="../scripts/product.js"></script>
-  <script src="../scripts/demo.js"></script> -->
+        <div class="comment-text">${comment}</div>
+      `;
+      commentsDiv.appendChild(commentElement);
+    }
+
+    // Example: Add some initial comments
+    addComment('John Doe', 4.5, 'This is a great product!');
+    addComment('Jane Smith', 5, 'I love it!');
+  </script>
 </body>
 </html>

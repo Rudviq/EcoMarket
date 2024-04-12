@@ -29,6 +29,7 @@
     width: 30%;
     /* background-color: var(--secondary); */
     background-color: rgb(227, 227, 227);
+    
     padding: 1rem;
     border-radius: .8rem;
     text-align: center;
@@ -73,7 +74,7 @@
     flex:1 1 0;
     height: .5rem;
     border-radius: .5rem;
-    background-color: #ff02;
+    background-color: #777777;
 }
 
 .bar{
