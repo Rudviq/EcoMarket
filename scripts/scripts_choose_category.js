@@ -43,6 +43,8 @@ function displayProducts(products) {
             <p class="price"><a>$</a>${product.Price}</p>
         `;
 
+        
+
         // Add click event listener to each product grid item
         productCard.addEventListener('click', () => {
             // Redirect to product.html with product ID in the URL

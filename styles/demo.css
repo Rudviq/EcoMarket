@@ -3,6 +3,7 @@
     --primary: #181736;
     --secondary:#252549;
     --text-color:#fff;
+    --bar-width: 80%; /* Default value */
 }
 
 *{
@@ -84,6 +85,11 @@
 }
 
 .bar:nth-child(1){
-    width: 80%;
+    width: var(--bar-width);
 
 }
+
+/* .bar:nth-child(2){
+    width: 50%;
+
+} */
