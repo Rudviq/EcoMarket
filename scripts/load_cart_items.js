@@ -41,12 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col" style="padding-left:0;">ITEMS ${len}</div>
             <div class="col text-right">&dollar; ${totalItemPrice}</div>
         `;
-        // var discount = 0;
-        // const promo = document.getElementById('code');
-
-        // if(promo === 'CSE6324'){
-        //     discount = 50;
-        // }
 
         const fprice = 5 + total_item_price;
         const fqprice = fprice.toFixed(2);
@@ -72,13 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function applyDiscount(discount) {
-        // Calculate the discounted total price
-        // const totalPrice = parseFloat(document.getElementById('totalPrice').textContent.slice(1)); // Assuming the total price is displayed as $XXX.XX
-        // const discountedPrice = totalPrice -discount;
         
-        // // Update the displayed discounted price
-        // document.getElementById('totalPrice').textContent = '$' + discountedPrice.toFixed(2);
-
         const fprice = 5 + total_item_price - discount;
         const fqprice = fprice.toFixed(2);
         const finalPrice = document.getElementById('total-final-price');
@@ -91,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     document.getElementById('checkoutButton').addEventListener('click', function() {
-        // Redirect to the checkout page
         window.location.href = 'checkout.html';
     });
 });

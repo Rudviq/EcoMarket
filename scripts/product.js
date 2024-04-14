@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartList = document.getElementById('cart-items1');
     cartList.innerHTML = ''; // Clear existing cart items
   
-    cartItems.forEach(item => {
+    cartItems.forEach((item,index) => {
      
       const cartItem   = document.createElement('div');
       cartItem.classList.add('cart-item');
@@ -143,9 +143,23 @@ document.addEventListener('DOMContentLoaded', function() {
       
       cartItem.appendChild(quantityControl);
   
+      // Remove button
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.addEventListener('click', () => removeCartItem(index));
+      cartItem.appendChild(removeButton);
+
       cartList.appendChild(cartItem);
     });
   }
+
+// Function to remove a cart item
+function removeCartItem(index) {
+  console.log("Varshu");
+  cartItems.splice(index, 1); // Remove the item from the cartItems array
+  displayCartItems(); // Update the cart display
+  saveCartItems(); // Save the updated cart items to local storage
+}
   
   // Function to decrease the quantity of a cart item
 function decreaseQuantity(item) {
