@@ -78,15 +78,31 @@
     background-color: #777777;
 }
 
-.bar{
+.bar1,.bar2,.bar3,.bar4,.bar5{
     height: 100%;
     background-color: #ffb637;
     border-radius: .5rem;
 }
 
-.bar:nth-child(1){
-    width: var(--bar-width);
+.bar1:nth-child(1){
+    width: var(--bar-width-1);
 
+}
+
+.bar2:nth-child(1){
+    width: var(--bar-width-2);/* Set the width for the second bar */
+}
+
+.bar3:nth-child(1){
+    width: var(--bar-width-3); /* Set the width for the third bar */
+}
+
+.bar4:nth-child(1){
+    width: var(--bar-width-4); /* Set the width for the fourth bar */
+}
+
+.bar5:nth-child(1){
+    width: var(--bar-width-5); /* Set the width for the fifth bar */
 }
 
 /* .bar:nth-child(2){

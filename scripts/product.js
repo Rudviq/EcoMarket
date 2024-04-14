@@ -8,9 +8,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Fetch product details using the retrieved product ID
   fetchProductReviews(productId);
   fetchProductDetails(productId);
+  loadCartItems();
   
   });
   
+  function loadCartItems() {
+    // Retrieve cart items from localStorage
+    const storedCartItems = localStorage.getItem('cartItems');
+
+    // Check if there are stored cart items
+    if (storedCartItems) {
+        // Parse the JSON string back into an array
+        cartItems = JSON.parse(storedCartItems);
+        
+        // Display the retrieved cart items in the sidebar
+        displayCartItems();
+    }
+}
+
   function fetchProductDetails(productId) {
     // Fetch product details from the server using AJAX
     fetch(`fetch_product_details.php?id=${productId}`)
@@ -33,29 +48,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
           </div>
       `;
-
         // Display star rating
         const ratingContainer = document.getElementById('product-rating');
         ratingContainer.innerHTML = c;
-        // console.log(c);
+       
       })
       .catch(error => console.error('Error fetching product details:', error));
   }
 
   function addToCart(title,image, price) {
     // Get the quantity input value
-    console.log("In addTocart");
     const quantityInput = document.getElementById('quantity');
     const quantity = parseInt(quantityInput.value);
-    console.log(quantity);
-    // Add the selected product to the cart array
-    cartItems.push({ title, price,image, quantity});
     
+    if(quantity>0){
+      // Add the selected product to the cart array
+      cartItems.push({ title, price,image, quantity});
+      
+    }
     
     // Display the cart items in the sidebar
     displayCartItems();
+    saveCartItems();
   }
 
+  function saveCartItems() {
+    // Save cart items to localStorage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
   function displayCartItems() {
     const cartList = document.getElementById('cart-items1');
     cartList.innerHTML = ''; // Clear existing cart items
@@ -144,19 +164,19 @@ function increaseQuantity(item) {
 function fetchProductReviews(productId){
   fetch(`fetch_product_reviews.php?id=${productId}`)
       .then(response => response.json())
-      .then(data => {
-        console.log("Rudviq");
+      .then(data => { 
+
         const averageRating = parseFloat(data.star.star).toFixed(1);
+        c= generateStarRating(averageRating);
         const productRating = document.getElementById('rating__average');
         productRating.innerHTML = `
           <h1>${averageRating}</h1>
-          <div class="star-outer">
-            <div class="star-inner">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          </div>
+          <p class="rating" id="product-rating1"></p>
           <p style="margin-bottom: 0;">${data.tcount.c}</p>
       `;
 
-        c= generateStarRating(averageRating);
+        const ratingContainer = document.getElementById('product-rating1');
+        ratingContainer.innerHTML = c;
         
         // const ratingProgress = parseFloat(data.star.star).toFixed(1);
         const ratingProgress = document.getElementById('rating__progress');
@@ -164,40 +184,53 @@ function fetchProductReviews(productId){
           <div class="rating__progress-value">
             <p style="margin-bottom: 0;">5 <span class="star">&#9733; </span></p>
             <div class="progress">
-              <div class="bar"></div>
+              <div class="bar1"></div>
             </div>
             <p style="margin-bottom: 0;">${data.count5.f}</p>
           </div>
           <div class="rating__progress-value">
             <p style="margin-bottom: 0;">4 <span class="star">&#9733; </span></p>
             <div class="progress">
-              <div class="bar"></div>
+              <div class="bar2"></div>
             </div>
             <p style="margin-bottom: 0;">${data.count4.four}</p>
           </div>
           <div class="rating__progress-value">
             <p style="margin-bottom: 0;">3 <span class="star">&#9733; </span></p>
             <div class="progress">
-              <div class="bar"></div>
+              <div class="bar3"></div>
             </div>
             <p style="margin-bottom: 0;">${data.count3.three}</p>
           </div>
           <div class="rating__progress-value">
             <p style="margin-bottom: 0;">2<span class="star">&#9733; </span></p>
             <div class="progress">
-              <div class="bar"></div>
+              <div class="bar4"></div>
             </div>
             <p style="margin-bottom: 0;">${data.count2.two}</p>
           </div>
           <div class="rating__progress-value">
             <p style="margin-bottom: 0;">1<span class="star">&#9733; </span></p>
             <div class="progress">
-              <div class="bar"></div>
+              <div class="bar5"></div>
             </div>
             <p style="margin-bottom: 0;">${data.count1.one}</p>
           </div>
       `;
-     
+
+      const  sum = parseInt(data.count5.f) + parseInt(data.count4.four) + parseInt(data.count3.three) + parseInt(data.count2.two) + parseInt(data.count1.one);
+      const percentage1 =  (data.count1.one/sum) *100;
+      const percentage2 =  (data.count2.two/sum) *100;
+      const percentage3 =  (data.count3.three/sum) *100;
+      const percentage4 =  (data.count4.four/sum) *100;
+      const percentage5 =  (data.count5.f /sum) *100;
+      
+      document.documentElement.style.setProperty('--bar-width-1', `${percentage5}%`);
+      document.documentElement.style.setProperty('--bar-width-2', `${percentage4}%`);
+      document.documentElement.style.setProperty('--bar-width-3', `${percentage3}%`);
+      document.documentElement.style.setProperty('--bar-width-4', `${percentage2}%` );
+      document.documentElement.style.setProperty('--bar-width-5', `${percentage1}%`);
+
 
       })
       .catch(error => console.error('Error fetching product details:', error));

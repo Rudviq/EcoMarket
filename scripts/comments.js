@@ -1,9 +1,19 @@
+// const productId = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener to the button for showing comments
+    const showCommentsButton = document.getElementById('show-comments-button');
+    showCommentsButton.addEventListener('click', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        toggleComments(productId);
+    });
+});
 
-function toggleComments() {
+function toggleComments(productId) {
     var commentsDiv = document.getElementById('comments');
     commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
 
-    fetch(`fetch_comments.php?id=1`)
+    fetch(`fetch_comments.php?id=${productId}`)
       .then(response => response.json())
       .then(products => {
         var commentsDiv = document.getElementById('comments');

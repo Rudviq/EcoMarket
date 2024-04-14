@@ -51,10 +51,18 @@ function displayProducts(products) {
             window.location.href = `product.html?id=${product.ProductID}`;
         });
 
-        productGrid.appendChild(productCard);
-        const ratingContainer = document.getElementById(`product-rating-${product.ProductID}`);
-        // Calculate and display star rating
-        ratingContainer.innerHTML =generateStarRating(4.5, product.ProductID);
+        fetch(`fetch_product_reviews.php?id=${product.ProductID}`)
+        .then(response => response.json())
+        .then(data => { 
+            const averageRating = parseFloat(data.star.star).toFixed(1);
+            productGrid.appendChild(productCard);
+            const ratingContainer = document.getElementById(`product-rating-${product.ProductID}`);
+            // Calculate and display star rating
+            ratingContainer.innerHTML =generateStarRating(averageRating, product.ProductID);
+        })
+        .catch(error => console.error('Error fetching product details:', error));
+
+        
     });
 }
 
