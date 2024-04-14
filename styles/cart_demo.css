@@ -20,6 +20,14 @@
     padding: 4vh 5vh;
     border-bottom-left-radius: 1rem;
     border-top-left-radius: 1rem;
+    max-height: 600px; /* Adjust the value as needed */
+    /* overflow-y: auto; Enable vertical scrolling */
+    
+}
+
+.cart-items{
+    max-height: 300px;
+    overflow-y: auto;
 }
 @media(max-width:767px){
     .cart{
