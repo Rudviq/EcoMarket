@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to remove a cart item
 function removeCartItem(index) {
-  console.log("Varshu");
+  
   cartItems.splice(index, 1); // Remove the item from the cartItems array
   displayCartItems(); // Update the cart display
   saveCartItems(); // Save the updated cart items to local storage

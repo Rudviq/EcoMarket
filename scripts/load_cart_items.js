@@ -1,6 +1,8 @@
+let storedCartItems = [];
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve cart items from localStorage
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+    storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+    // console.log(storedCartItems);
 
     if (storedCartItems && storedCartItems.length > 0) {
         const len = storedCartItems.length;
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const cartList = document.getElementById('cart-items_final');
         var total_item_price =0;
-        storedCartItems.forEach(item => {
+        storedCartItems.forEach((item,index) => {
             const cartItem = document.createElement('div');
             cartItem.classList.add('row', 'main', 'align-items-center', 'border-top', 'border-bottom');
 
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <a href="#" class="border" style="text-decoration:none; color:black">${item.quantity}</a>
                     <a href="#" style="text-decoration:none; color:black">+</a>
                 </div>
-                <div class="col">&dollar; ${item.price} <span class="close">&#10005;</span></div>
+                <div class="col">&dollar; ${item.price} <span class="close" onclick="removeCartItems(${index})">&#10005;</span></div>
             `;
 
             total_item_price = total_item_price + item.price * item.quantity;
@@ -82,3 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'checkout.html';
     });
 });
+
+function removeCartItems(index) {
+    
+    storedCartItems.splice(index, 1); // Remove item from storedCartItems array
+    console.log(storedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(storedCartItems)); // Update local storage
+    document.location.reload(); // Refresh the page to update the cart display
+}
