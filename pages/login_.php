@@ -20,14 +20,14 @@
         
         <input name ="email" type="email" placeholder="Email" required>
         <input name="password" type="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <button type="submit" id="lgnBtn">Login</button>
         <p>Don't have an account? <a href="signup_.php" id="signup-link">Sign Up</a></p>
         
       </form>
+      
     </div>
     
   </div>
-
-  <!-- <script src="../scripts/scripts.js"></script> -->
+ 
 </body>
 </html>

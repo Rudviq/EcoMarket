@@ -23,7 +23,7 @@
           <li><a href="homePage.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="purchase_history.html">Past Orders</a></li>
         </ul>
       </nav>
     </div>
@@ -36,7 +36,7 @@
 
         <div class="row g-3">
 
-          <div class="col-md-6">  
+          <div class="col-md-6" style="width:100%">  
             
             <span>Payment Method</span>
             <div class="card3">
@@ -123,77 +123,17 @@
 
                       </div>
 
-                      <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with ssl certificate</span>
-                     
+                      <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with ssl certificate</span><br>
+                      <span>
+                        <button id="makePaymentBtn">Make Payment</button>
+                      </span>
                     </div>
                   </div>
                 </div>
-                
               </div>
-              
             </div>
-
           </div>
-
-          <div class="col-md-6">
-              <span>Summary</span>
-
-              <div class="card3">
-
-                <div class="d-flex justify-content-between p-3">
-
-                  <div class="d-flex flex-column">
-
-                    <span>Pro(Billed Monthly) <i class="fa fa-caret-down"></i></span>
-                    <a href="#" class="billing">Save 20% with annual billing</a>
-                    
-                  </div>
-
-                  <div class="mt-1">
-                    <sup class="super-price">$9.99</sup>
-                    <span class="super-month">/Month</span>
-                  </div>
-                  
-                </div>
-
-                <hr class="mt-0 line">
-
-                <div class="p-3">
-
-                  <div class="d-flex justify-content-between mb-2">
-
-                    <span>Refferal Bonouses</span>
-                    <span>-$2.00</span>
-                    
-                  </div>
-
-                  <div class="d-flex justify-content-between">
-
-                    <span>Vat <i class="fa fa-clock-o"></i></span>
-                    <span>-20%</span>
-                  </div>
-                </div>
-
-                <hr class="mt-0 line">
-
-                <div class="p-3 d-flex justify-content-between">
-                  <div class="d-flex flex-column">
-                    <span>Today you pay(US Dollars)</span>
-                    <small>After 30 days $9.59</small>
-                  </div>
-                  <span>$0</span>
-                </div>
-                <div class="p-3">
-                <button class="btn btn-primary btn-block free-button">Try it free for 30 days</button> 
-               <div class="text-center">
-                 <a href="#">Have a promo code?</a>
-               </div>   
-                </div>
-              </div>
-          </div>
-          
         </div>
-        
 
       </div>
   </main>
@@ -211,5 +151,6 @@
   <script src="../scripts/product.js"></script>
   <script src="../scripts/demo.js"></script>
   <script src="../scripts/comments.js"></script>
+  <script src="../scripts/checkout.js"></script>
 </body>
 </html>

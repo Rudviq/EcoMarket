@@ -1,7 +1,8 @@
 let cartItems = [];
 let c = 0;
-
+const userId = sessionStorage.getItem('user_id');
 document.addEventListener('DOMContentLoaded', function() {
+  
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
 
@@ -26,62 +27,63 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 
-  function fetchProductDetails(productId) {
-    // Fetch product details from the server using AJAX
-    fetch(`fetch_product_details.php?id=${productId}`)
-      .then(response => response.json())
-      .then(product => {
-        // Populate HTML elements with product details
-        const productDetailsContainer = document.getElementById('product-details');
-        productDetailsContainer.innerHTML = `
-          <img src="../assets/${product.Image}" alt="${product.Title}">
-          <div class="details">
-            <h2>${product.Title}</h2>
-            <p>Description: ${product.Description}</p>
-            <p class="price">Price: $${product.Price}</p>
-            <p class="rating" id="product-rating"></p>
-            <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
-            <button onclick="addToCart('${product.Title}','${product.Image}',${product.Price})">Add to Cart</button>
-            <button >Continue Shopping</button>
-            <br>
-            <p class="avail"> Available Stock:  ${product.Stock}</p>
+function fetchProductDetails(productId) {
+  // Fetch product details from the server using AJAX
+  fetch(`fetch_product_details.php?id=${productId}`)
+    .then(response => response.json())
+    .then(product => {
+      // Populate HTML elements with product details
+      const productDetailsContainer = document.getElementById('product-details');
+      productDetailsContainer.innerHTML = `
+        <img src="../assets/${product.Image}" alt="${product.Title}">
+        <div class="details">
+          <h2>${product.Title}</h2>
+          <p>Description: ${product.Description}</p>
+          <p class="price">Price: $${product.Price}</p>
+          <p class="rating" id="product-rating"></p>
+          <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
+          <button onclick="addToCart('${product.ProductID}','${product.Title}','${product.Image}',${product.Price})">Add to Cart</button>
+          <button >Continue Shopping</button>
+          <br>
+          <p class="avail"> Available Stock:  ${product.Stock}</p>
 
-          </div>
-      `;
-        // Display star rating
-        const ratingContainer = document.getElementById('product-rating');
-        ratingContainer.innerHTML = c;
-       
-      })
-      .catch(error => console.error('Error fetching product details:', error));
-  }
-
-  function addToCart(title,image, price) {
-    // Get the quantity input value
-    const quantityInput = document.getElementById('quantity');
-    const quantity = parseInt(quantityInput.value);
-    
-    if(quantity>0){
-      // Add the selected product to the cart array
-      cartItems.push({ title, price,image, quantity});
+        </div>
+    `;
+      // Display star rating
+      const ratingContainer = document.getElementById('product-rating');
+      ratingContainer.innerHTML = c;
       
-    }
+    })
+    .catch(error => console.error('Error fetching product details:', error));
+}
+
+function addToCart(id,title,image, price) {
+  // Get the quantity input value
+  const quantityInput = document.getElementById('quantity');
+  const quantity = parseInt(quantityInput.value);
+  id = parseInt(id);
+  if(quantity>0){
+    // Add the selected product to the cart array
+    cartItems.push({ id,title, price,image, quantity , userId});
     
-    // Display the cart items in the sidebar
-    displayCartItems();
-    saveCartItems();
   }
 
-  function saveCartItems() {
-    // Save cart items to localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  // Display the cart items in the sidebar
+  displayCartItems();
+  saveCartItems();
 }
-  function displayCartItems() {
-    const cartList = document.getElementById('cart-items1');
-    cartList.innerHTML = ''; // Clear existing cart items
-  
-    cartItems.forEach((item,index) => {
-     
+
+function saveCartItems() {
+  // Save cart items to localStorage
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+function displayCartItems() {
+  const cartList = document.getElementById('cart-items1');
+  cartList.innerHTML = ''; // Clear existing cart items
+
+  cartItems.forEach((item,index) => {
+    if(item.userId===userId){
       const cartItem   = document.createElement('div');
       cartItem.classList.add('cart-item');
 
@@ -104,12 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const title = document.createElement('h3');
       title.textContent = item.title;
       cartItem2.appendChild(title);
-  
+
       // Product price
       const price = document.createElement('p');
       price.textContent = `$${item.price}`;
       cartItem2.appendChild(price);
-  
+
       cartItem.appendChild(imgTitleItem);
       // Quantity controls
       const quantityControl = document.createElement('div');
@@ -142,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
       quantityControl.appendChild(increaseLink);
       
       cartItem.appendChild(quantityControl);
-  
+
       // Remove button
       const removeButton = document.createElement('button');
       removeButton.textContent = 'Remove';
@@ -150,8 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
       cartItem.appendChild(removeButton);
 
       cartList.appendChild(cartItem);
-    });
-  }
+    }
+  });
+}
 
 // Function to remove a cart item
 function removeCartItem(index) {
@@ -250,3 +253,10 @@ function fetchProductReviews(productId){
       .catch(error => console.error('Error fetching product details:', error));
   
 }
+
+ // Add event listener to the "Go to Cart" button
+ document.getElementById('go-to-cart').addEventListener('click', function() {
+  // Redirect the user to the cart page (replace 'cart.html' with your actual cart page URL)
+  window.location.href = 'cart_demo.html';
+});
+
