@@ -19,13 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
         </div>
     `;
-        console.log(user.isAdmin);
         const uploadSection = document.getElementById('upload-sec');
         if (user.isAdmin === '1') {
-        uploadSection.style.display = 'block';
+            uploadSection.style.display = 'block';
         
         } else {
-        uploadSection.style.display = 'none';
+            uploadSection.style.display = 'none';
         }
     })
     .catch(error => console.error('Error fetching user details:', error));
@@ -61,8 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const price = parseFloat(document.getElementById('product-price').value);
         const stock = parseInt(document.getElementById('product-stock').value);
         const category = parseInt(document.getElementById('categories').value);
-        // console.log(category);
-        const sql = `INSERT INTO products(Title, Description, Price, Image, CreatedAt, Stock) VALUES('${pname}','${desc}',${price},'${fileName}',NOW(),${stock})`;
+        // userId = parseInt(userId);
+        console.log("Qweaerasd");
+        const sql = `INSERT INTO products(Title, Description, Price, Image, CreatedAt, Stock,ArtisanID) VALUES('${pname}','${desc}',${price},'${fileName}',NOW(),${stock},${userId})`;
 
         // Execute the SQL query (you need to send this data to your server and handle database operations there)
         fetch('insert_feedback.php', {
@@ -99,6 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 console.log('Product category inserted successfully:', data);
+
+                document.getElementById('product-name').value = '';
+                document.getElementById('product-description').value = '';
+                document.getElementById('product-image').value = '';
+                document.getElementById('product-price').value = '';
+                document.getElementById('product-stock').value = '';
+                document.getElementById('categories').value = '';
                 // Optionally, you can display a success message or update the UI
             })
             .catch(error => {

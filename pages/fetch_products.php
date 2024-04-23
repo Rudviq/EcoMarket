@@ -3,7 +3,7 @@ session_start();
 require_once "db_connection.php";
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 25; // Number of products per page
+$limit = 16; // Number of products per page
 $offset = ($page - 1) * $limit;
 
 
@@ -18,18 +18,18 @@ if (isset($_GET['categories'])) {
 }
 
 
-$filter = $_GET['filter'];
-if(isset($filter)){
-    if($filter==='1'){
+$filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+if($filter){
+    if($filter== 1){
         $sql .= " ORDER BY P.Price ASC";
-        // $sql .= " LIMIT $limit OFFSET $offset";
+        // $sql .= " OFFSET $offset LIMIT $limit ";
        
     }
-    elseif($filter === '2'){
+    elseif($filter ==  2){
         $sql .= " ORDER BY P.Price DESC";
         // $sql .= " LIMIT $limit OFFSET $offset";
     }
-    elseif($filter === '12'){
+    elseif($filter ==  12){
         $sql .= " LIMIT 12";
     }
     else{
@@ -37,6 +37,11 @@ if(isset($filter)){
     }
     
 
+}
+
+if(isset($_GET['artisan_id'])){
+    $artisanID = $_GET['artisan_id'];
+    $sql .= " WHERE ArtisanID = $artisanID";
 }
 
 // $sql .= " LIMIT $limit OFFSET $offset";

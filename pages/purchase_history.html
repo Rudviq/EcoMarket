@@ -53,7 +53,10 @@
       <img src="../assets/logo.png" class="logo">
       <h1>EcoMarket</h1>
     </div>
-      <nav>
+      <nav id="q">
+          
+      </nav>
+      <!-- <nav>
         <ul>
           <li><a href="homePage.html">Home</a></li>
           <li><a href="shop.html">Shop</a></li>
@@ -67,7 +70,7 @@
             </div>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </header>
 
@@ -83,15 +86,16 @@
       <p>&copy; 2024 EcoMarket. All rights reserved.</p>
     </div>
   </footer>
-  
-  
+  <script src="../scripts/navbar.js"></script>
+  <script>const userId = sessionStorage.getItem('user_id');</script>
   <!-- <script src="../scripts/scripts_choose_category.js?v=1"></script> -->
-  <script src="../scripts/product.js"></script>
+  <!-- <script src="../scripts/product.js"></script> -->
   <script src="../scripts/demo.js"></script>
   <script src="../scripts/comments.js"></script>
   <script src="../scripts/purchase_history.js"></script>
   <script src="../scripts/checkout.js"></script>
   <script src="../scripts/userName.js"></script>
+  <script>showNavBar(userId);</script>
   <a href="login_.php" onclick="logout()">Logout</a>
   
 </body>

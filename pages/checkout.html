@@ -49,21 +49,9 @@
       <img src="../assets/logo.png" class="logo">
       <h1>EcoMarket</h1>
     </div>
-      <nav>
-        <ul>
-          <li><a href="homePage.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="purchase_history.html">Past Orders</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropbtn" id="pro"></a>
-            <div class="dropdown-content">
-              <a href="profile.html">Profile</a>
-              <a href="login_.php" onclick="logout()">Logout</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+        <nav id="q">
+            
+        </nav>
     </div>
   </header>
 
@@ -184,7 +172,7 @@
   </footer>
   
       
-  
+  <script>const userId = sessionStorage.getItem('user_id');</script>
   <script src="../scripts/scripts_choose_category.js?v=1"></script>
   <script src="../scripts/product.js"></script>
   <script src="../scripts/demo.js"></script>
@@ -192,5 +180,7 @@
   <script src="../scripts/checkout.js"></script>
   <script src="../scripts/logout.js"></script>
   <script src="../scripts/userName.js"></script>
+  <script src="../scripts/navbar.js"></script>
+  <script>showNavBar(userId);</script>
 </body>
 </html>

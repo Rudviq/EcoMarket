@@ -26,7 +26,7 @@
         }
 
         // Generate username (first letter of last name + first name)
-        $username = substr($lname, 0, 1) . $fname;
+        $username = $fname;
 
         // Determine the default photo based on the first letter of the first name
         $defaultPhoto = "../assets/" . strtolower(substr($fname, 0, 1)) . ".png";

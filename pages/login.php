@@ -17,7 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_name'] = $row['Username'];
         $_SESSION["loggedin"] = true;
         $_SESSION["email"] = $email;
-        header("location: homePage.html"); // Redirect to dashboard or homepage
+        if($row['isAdmin'] == 0){
+            header("location: homePage.html"); // Redirect to dashboard or homepage
+        }
+        else{
+            header("location: homePage_artisan.html");
+        }
         exit;
     } else {
         

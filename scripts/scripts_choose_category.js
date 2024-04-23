@@ -1,14 +1,31 @@
 var filter;
-var selectedCategories = null;
+// var selectedCategories;
+// var selectedCategories = null;
 let currentPage = 1;
+
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCategoriesString = urlParams.get('cid');
+let selectedCategories = selectedCategoriesString ? selectedCategoriesString.split(',') : null;
+
+// Display all products by default
+if(selectedCategories){
+    console.log("QwRudviq",selectedCategories);
+    fetchAndDisplayProducts(selectedCategories,0,currentPage);
+}
+else{
+    fetchAndDisplayProducts(null,0,currentPage);
+}
+  
+updatePaginationButtons();
 
 // Function to fetch and display products based on selected categories
 function fetchAndDisplayProducts(selectedCategories,filter,page) {
     // Fetch products from the server using AJAX
+    const cacheBuster = Math.random();
     console.log('Fetching and displaying products...',currentPage);
     if(selectedCategories){
-        
-        fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter+'&page=' +page)
+        console.log(selectedCategories,filter);
+        fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter+'&page=' +page+'&cache=' + cacheBuster)
             .then(response => response.json())
             .then(products => {
                 // Display fetched products
@@ -17,6 +34,7 @@ function fetchAndDisplayProducts(selectedCategories,filter,page) {
             .catch(error => console.error('Error fetching products:', error));
     }
     else{
+        console.log(selectedCategories,filter);
         fetch('fetch_products.php?filter='+filter+'&page=' +page)
         .then(response => response.json())
         .then(products => {
@@ -73,10 +91,11 @@ function displayProducts1(products) {
             // Redirect to product.html with product ID in the URL
             window.location.href = `product.html?id=${product.ProductID}`;
         });
-
+        // console.log('V',product.ProductID);
         fetch(`fetch_product_reviews.php?id=${product.ProductID}`)
         .then(response => response.json())
         .then(data => { 
+            
             const averageRating = parseFloat(data.star.star).toFixed(1);
             productGrid.appendChild(productCard);
             const ratingContainer = document.getElementById(`product-rating-${product.ProductID}`);
@@ -171,6 +190,10 @@ fetch('fetch_categories.php')
         // fetchAndDisplayProducts(selectedCategories,filter,currentPage);
       });
 
+      if (selectedCategories && selectedCategories.includes(category.CategoryID)) {
+        checkbox.checked = true; // Check the checkbox if the category is selected
+      }
+
       // Append checkbox and label to the categoryFilter element
       categoryFilter.appendChild(checkbox);
       categoryFilter.appendChild(label);
@@ -180,7 +203,3 @@ fetch('fetch_categories.php')
 })
 .catch(error => console.error('Error fetching categories:', error));
 
-// Display all products by default
-fetchAndDisplayProducts(null,0,currentPage);
-  
-updatePaginationButtons();

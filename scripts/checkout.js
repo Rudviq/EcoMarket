@@ -2,7 +2,7 @@
 document.getElementById('makePaymentBtn').addEventListener('click', function() {
     // Retrieve purchased items (for example, from the shopping cart)
     const purchasedItems = []; // Replace with actual logic to retrieve purchased items
-
+    console.log("Rudviqoaf");
     // Add purchased items to purchase history (for example, store in local storage)
     addToPurchaseHistory(purchasedItems);
   });

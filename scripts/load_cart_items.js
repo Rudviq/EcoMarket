@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // console.log(storedCartItems);
 
     if (storedCartItems && storedCartItems.length > 0) {
-        
-        const len = storedCartItems.length;
+        const filteredCartItems = storedCartItems.filter(item => item.userId == userId);
+        const len = filteredCartItems.length;
         const shoppingTitle = document.getElementById('shop-title');
         shoppingTitle.innerHTML = `
             <div class="col"><h4><b>Shopping Cart</b></h4></div>
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if the entered code matches the discount code
         if (code === 'CSE6324') {
             // Apply the discount (e.g., 10% off)
-            applyDiscount(10); // Pass the discount percentage as an argument
+            applyDiscount(50); // Pass the discount percentage as an argument
         } else {
             // Remove the discount if the code doesn't match
             applyDiscount(0);
