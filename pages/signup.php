@@ -16,6 +16,7 @@
             header("location: signup_.php?signup_err=Passwords do not match."); // Redirect back to the signup page
             exit;
         }
+
         // Check if the email is already registered
         $sql = "SELECT UserID FROM users WHERE email = '$email'";
         $result = $conn->query($sql);
@@ -24,7 +25,14 @@
             exit;
         }
 
-        $sql = "INSERT INTO users(Username, LastName, email, Password) VALUES('$fname','$lname','$email','$password')";
+        // Generate username (first letter of last name + first name)
+        $username = substr($lname, 0, 1) . $fname;
+
+        // Determine the default photo based on the first letter of the first name
+        $defaultPhoto = "../assets/" . strtolower(substr($fname, 0, 1)) . ".png";
+
+        // Insert user data into database
+        $sql = "INSERT INTO users(Username, LastName, email, Password, Photo) VALUES('$username', '$lname', '$email', '$password', '$defaultPhoto')";
         if ($conn->query($sql) === TRUE) {
             header("location: login_.php?signup_success=Ready to Login");
             exit;

@@ -48,6 +48,6 @@ document.getElementById('makePaymentBtn').addEventListener('click', function() {
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   
       // Redirect to purchase history page or display a success message
-      // window.location.href = 'purchase_history.html';
+      window.location.href = 'purchase_history.html';
   }
    

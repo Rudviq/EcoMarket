@@ -1,17 +1,17 @@
 let cartItems = [];
 let c = 0;
 const userId = sessionStorage.getItem('user_id');
+
 document.addEventListener('DOMContentLoaded', function() {
   
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
-
   // Fetch product details using the retrieved product ID
   fetchProductReviews(productId);
   fetchProductDetails(productId);
   loadCartItems();
   
-  });
+});
   
   function loadCartItems() {
     // Retrieve cart items from localStorage
@@ -42,7 +42,7 @@ function fetchProductDetails(productId) {
           <p class="price">Price: $${product.Price}</p>
           <p class="rating" id="product-rating"></p>
           <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
-          <button onclick="addToCart('${product.ProductID}','${product.Title}','${product.Image}',${product.Price})">Add to Cart</button>
+          <button onclick="addToCart('${product.ProductID}','${product.Title}','${product.Image}','${product.Price}',${product.Stock})">Add to Cart</button>
           <button >Continue Shopping</button>
           <br>
           <p class="avail"> Available Stock:  ${product.Stock}</p>
@@ -57,15 +57,26 @@ function fetchProductDetails(productId) {
     .catch(error => console.error('Error fetching product details:', error));
 }
 
-function addToCart(id,title,image, price) {
+function addToCart(id,title,image, price,stock) {
   // Get the quantity input value
   const quantityInput = document.getElementById('quantity');
   const quantity = parseInt(quantityInput.value);
   id = parseInt(id);
-  if(quantity>0){
-    // Add the selected product to the cart array
-    cartItems.push({ id,title, price,image, quantity , userId});
-    
+
+  stock = parseInt(stock);
+
+  const existingCartItemIndex = cartItems.findIndex(item => item.id === id && item.userId === userId);
+
+  if (existingCartItemIndex !== -1) {
+        // If the product is already in the cart, update its quantity
+        if((cartItems[existingCartItemIndex].quantity + quantity) <=stock){
+          cartItems[existingCartItemIndex].quantity += quantity;
+        }
+  } else {
+    if(quantity>0){
+        // If the product is not in the cart, add it as a new item
+        cartItems.push({ id, title, price, image, quantity, userId });
+    }
   }
 
   // Display the cart items in the sidebar

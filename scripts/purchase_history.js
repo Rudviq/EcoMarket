@@ -17,7 +17,7 @@ function displayOrderedItems(){
     cartList.innerHTML = ''; // Clear existing cart items
     console.log(purchaseHistory);
 
-    purchaseHistory.forEach((item,index) => {
+    purchaseHistory.forEach((item) => {
         if(item.userId===userId){
             const cartItem   = document.createElement('div');
             cartItem.classList.add('cart-item', 'row', 'mb-3', 'border-bottom');
@@ -51,6 +51,7 @@ function displayOrderedItems(){
 
             // Price per item
             const price = document.createElement('p');
+            item.price = parseFloat(item.price);
             price.textContent = 'Price per Item: ' + `$${item.price.toFixed(2)}`;
             price.classList.add('m-0');
             priceQuantity.appendChild(price);
@@ -87,11 +88,11 @@ function displayOrderedItems(){
             starRating.innerHTML = `
                 <p>Rate this product:</p>
                 <div class="rating">
-                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
                     <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
                 </div>
             `;
             feedbackContainer.appendChild(starRating);

@@ -25,6 +25,7 @@
         <input type="email" name = "email" placeholder="Email" required>
         <input type="password" name= "password" placeholder="Password" required>
         <input type="password" name="cpassword" placeholder="Confirm Password" required>
+        <input type="file" name="photo" accept="image/*"> <!-- Input for profile picture -->
         <button type="submit">Sign Up</button>
         <p>Already have an account? <a href="#" id="login-link">Login</a></p>
       </form>

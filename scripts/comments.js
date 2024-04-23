@@ -24,7 +24,7 @@ function toggleComments(productId) {
         console.log(product);
         commentElement.innerHTML = `
             <div class="user-info" >
-            <img src="../assets/creator1.jpeg" alt="User Profile Picture">
+            <img src="../assets/${product.Photo}" alt="User Profile Picture">
             <span>${product.Username}</span>
             <span> ${generateStarRating(product.Rating)}</span>
             </div>

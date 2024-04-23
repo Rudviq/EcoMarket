@@ -81,3 +81,30 @@ header{
   
 }
 
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 40%;
+  /* margin-right: auto; */
+  align-content: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+#page-number {
+  padding: 8px 16px;
+  margin: 0 10px;
+  font-weight: bold;
+}

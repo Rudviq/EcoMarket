@@ -1,34 +1,57 @@
 var filter;
 var selectedCategories = null;
+let currentPage = 1;
 
 // Function to fetch and display products based on selected categories
-function fetchAndDisplayProducts(selectedCategories,filter) {
+function fetchAndDisplayProducts(selectedCategories,filter,page) {
     // Fetch products from the server using AJAX
-    console.log('Fetching and displaying products...');
+    console.log('Fetching and displaying products...',currentPage);
     if(selectedCategories){
         
-        fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter)
+        fetch('fetch_products.php?categories=' + selectedCategories.join(',') + '&filter=' +filter+'&page=' +page)
             .then(response => response.json())
             .then(products => {
                 // Display fetched products
-                displayProducts(products);
+                displayProducts1(products);
             })
             .catch(error => console.error('Error fetching products:', error));
     }
     else{
-        fetch('fetch_products.php?filter='+filter)
+        fetch('fetch_products.php?filter='+filter+'&page=' +page)
         .then(response => response.json())
         .then(products => {
             // Display fetched products
-            displayProducts(products);
+            displayProducts1(products);
         })
         .catch(error => console.error('Error fetching products:', error));
     }
 }
 
+// Function to update the pagination buttons
+function updatePaginationButtons() {
+    document.getElementById('page-number').innerText = currentPage; // Update the displayed page number
+}
+// Event listener for the next page button
+document.getElementById('next-page').addEventListener('click', () => {
+    currentPage++;
+    fetchAndDisplayProducts(selectedCategories, filter, currentPage);
+    updatePaginationButtons();
+});
+
+// Event listener for the previous page button
+document.getElementById('prev-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchAndDisplayProducts(selectedCategories, filter, currentPage);
+        updatePaginationButtons();
+    }
+});
+
+
+
 // Function to display products
-function displayProducts(products) {
-    console.log('Displaying products...');
+function displayProducts1(products) {
+    // console.log('Displaying products...');
     const productGrid = document.getElementById('product-grid');
     productGrid.innerHTML = ''; // Clear existing products from the container
 
@@ -66,25 +89,15 @@ function displayProducts(products) {
     });
 }
 
-// Function to generate star rating
-// function generateStarRating(rating, productId) {
-//     console.log(`Generating star rating for product ${productId} with rating ${rating}`);
-//     const starsTotal = 5;
-//     const starPercentage = (rating / starsTotal) * 100;
-//     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-//     const ratingContainer = document.getElementById(`product-rating-${productId}`);
-//     ratingContainer.style.width = starPercentageRounded;
-//     ratingContainer.innerHTML = `${rating} Stars`;
-    
-// }
+
 // Function to generate star rating
 function generateStarRating(rating, productId) {
-    console.log(`Generating star rating for product ${productId} with rating ${rating}`);
+    // console.log(`Generating star rating for product ${productId} with rating ${rating}`);
     const starsTotal = 5;
     const starPercentage = (rating / starsTotal) * 100;
-    console.log(`Star percentage: ${starPercentage}`);
+    // console.log(`Star percentage: ${starPercentage}`);
     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-    console.log(`Rounded star percentage: ${starPercentageRounded}`);
+    // console.log(`Rounded star percentage: ${starPercentageRounded}`);
 
     // Create HTML for star rating
     const starsHTML = `
@@ -94,14 +107,7 @@ function generateStarRating(rating, productId) {
     `;
      
     return starsHTML;
-    // const ratingContainer = document.getElementById(`product-rating-${productId}`);
-    // console.log(`Rating container:`, ratingContainer);
-    // if (ratingContainer) {
-    //     ratingContainer.style.width = starPercentageRounded;
-    //     // ratingContainer.innerHTML = `${rating} Stars`;
-    // } else {
-    //     console.log(`Error: Rating container not found for product ${productId}`);
-    // }
+   
 }
 
 
@@ -121,7 +127,7 @@ document.getElementById('price-filter').addEventListener('change', function() {
       filter =0;
   }
 
-  fetchAndDisplayProducts(selectedCategories, filter);
+  fetchAndDisplayProducts(selectedCategories, filter,currentPage);
 });
   
 // Fetch categories from the server using AJAX
@@ -154,9 +160,15 @@ fetch('fetch_categories.php')
 
         // Get the values of selected checkboxes
         selectedCategories = selectedCheckboxes.map(checkbox => checkbox.value);
-          console.log(selectedCategories);
+        //   console.log(selectedCategories);
         // Update displayed products based on selected categories
-        fetchAndDisplayProducts(selectedCategories,filter);
+        if (selectedCategories.length > 0) {
+            fetchAndDisplayProducts(selectedCategories, filter, currentPage);
+        } else {
+            // If no categories are selected, fetch and display all products
+            fetchAndDisplayProducts(null, filter, currentPage);
+        }
+        // fetchAndDisplayProducts(selectedCategories,filter,currentPage);
       });
 
       // Append checkbox and label to the categoryFilter element
@@ -169,5 +181,6 @@ fetch('fetch_categories.php')
 .catch(error => console.error('Error fetching categories:', error));
 
 // Display all products by default
-fetchAndDisplayProducts(null,0);
+fetchAndDisplayProducts(null,0,currentPage);
   
+updatePaginationButtons();

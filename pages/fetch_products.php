@@ -2,6 +2,10 @@
 session_start();
 require_once "db_connection.php";
 
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 25; // Number of products per page
+$offset = ($page - 1) * $limit;
+
 
 // SQL query to fetch products
 $sql = "SELECT * FROM products P";
@@ -18,15 +22,25 @@ $filter = $_GET['filter'];
 if(isset($filter)){
     if($filter==='1'){
         $sql .= " ORDER BY P.Price ASC";
+        // $sql .= " LIMIT $limit OFFSET $offset";
+       
     }
     elseif($filter === '2'){
         $sql .= " ORDER BY P.Price DESC";
+        // $sql .= " LIMIT $limit OFFSET $offset";
     }
     elseif($filter === '12'){
         $sql .= " LIMIT 12";
     }
+    else{
+        // $sql .= " LIMIT $limit OFFSET $offset";
+    }
     
+
 }
+
+// $sql .= " LIMIT $limit OFFSET $offset";
+// $sql .=" LIMIT 50";
 
 // Execute the query
 $result = $conn->query($sql);

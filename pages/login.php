@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $userId = $row['UserID'];
         $_SESSION['user_id'] = $userId;
+        $_SESSION['user_name'] = $row['Username'];
         $_SESSION["loggedin"] = true;
         $_SESSION["email"] = $email;
         header("location: homePage.html"); // Redirect to dashboard or homepage
