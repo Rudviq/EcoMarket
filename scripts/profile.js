@@ -1,4 +1,4 @@
-const userId = sessionStorage.getItem('user_id');
+// const userId = sessionStorage.getItem('user_id');
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get user data from localStorage

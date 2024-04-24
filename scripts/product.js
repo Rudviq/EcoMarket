@@ -57,6 +57,7 @@ function fetchProductDetails(productId) {
         <div class="details">
           <h2>${product.Title}</h2>
           <p>Description: ${product.Description}</p>
+          <p>Artisan: ${product.ArtisanName}</p>
           <p class="price">Price: $${product.Price}</p>
           <p class="rating" id="product-rating"></p>
           <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
@@ -84,13 +85,12 @@ function fetchProductDetails(productId) {
 //   }
 
 function continueShoppingBtn(){
-    console.log("Bhavsar");
         window.location.href = 'shop.html';
 }
 
 
 function addToCart(id,title,image, price,stock) {
-  // Get the quantity input value
+  // Get the quantity input value 
   const quantityInput = document.getElementById('quantity');
   const quantity = parseInt(quantityInput.value);
   id = parseInt(id);
@@ -105,9 +105,13 @@ function addToCart(id,title,image, price,stock) {
           cartItems[existingCartItemIndex].quantity += quantity;
         }
   } else {
-    if(quantity>0){
+    if(quantity>0 && quantity<=stock){
+
         // If the product is not in the cart, add it as a new item
         cartItems.push({ id, title, price, image, quantity, userId });
+    }
+    else{
+      alert("Enter Quantity Less than the available stock");
     }
   }
 
@@ -212,7 +216,8 @@ function fetchProductDetailsArt(productId){
             <p>Description: ${product.Description}</p>
             <p class="price">Price: $${product.Price}</p>
             <p class="rating" id="product-rating"></p>
-          
+            <p class="quant" >Update Stock: <input type=number min="0"  id="update-stock"></p>
+            <button onclick="updateStock(${product.ProductID})">Update Stock</button>
             <p class="avail"> Available Stock:  ${product.Stock}</p>
 
           </div>
@@ -225,6 +230,33 @@ function fetchProductDetailsArt(productId){
       .catch(error => console.error('Error fetching product details:', error));
 }
 
+function updateStock(pid){
+    
+    const upstock = parseInt(document.getElementById("update-stock").value);
+    console.log(upstock);
+      if(upstock>0){
+          const sql = `UPDATE products SET Stock = Stock + ${upstock} WHERE productId = ${pid}`;
+
+          // Execute the SQL query (you need to send this data to your server and handle database operations there)
+          fetch('insert_feedback.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ sql: sql })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Stock Updated successfully:', data);
+              window.location.href = 'homePage_artisan.html';
+              // Optionally, you can display a success message or update the UI
+          })
+          .catch(error => {
+              console.error('Error inserting STOCK:', error);
+              // Optionally, you can display an error message or handle the error
+          });
+        }
+}
 // Function to remove a cart item
 function removeCartItem(index) {
   

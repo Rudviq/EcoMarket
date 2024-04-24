@@ -1,4 +1,6 @@
 let storedCartItems = [];
+var len;
+var totalItemPrice;
 // const userId = sessionStorage.getItem('user_id');
 console.log(userId);
 document.addEventListener('DOMContentLoaded', function() {
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (storedCartItems && storedCartItems.length > 0) {
         const filteredCartItems = storedCartItems.filter(item => item.userId == userId);
-        const len = filteredCartItems.length;
+        len = filteredCartItems.length;
         const shoppingTitle = document.getElementById('shop-title');
         shoppingTitle.innerHTML = `
             <div class="col"><h4><b>Shopping Cart</b></h4></div>
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const shoppingCart = document.getElementById('total-item-price');
-        const totalItemPrice = total_item_price.toFixed(2);
+        totalItemPrice = total_item_price.toFixed(2);
         shoppingCart.innerHTML = `
             <div class="col" style="padding-left:0;">ITEMS ${len}</div>
             <div class="col text-right">&dollar; ${totalItemPrice}</div>
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get the value of the input field
         const code = this.value.trim();
         // Check if the entered code matches the discount code
-        if (code === 'CSE6324') {
+        if (code === 'CSE6324' && totalItemPrice > 100) {
             // Apply the discount (e.g., 10% off)
             applyDiscount(50); // Pass the discount percentage as an argument
         } else {
@@ -86,7 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     document.getElementById('checkoutButton').addEventListener('click', function() {
+        if(len>0){
         window.location.href = 'checkout.html';
+        }
+        else{
+            alert("Please select items to checkout");
+        }
     });
 });
 

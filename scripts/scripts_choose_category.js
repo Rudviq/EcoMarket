@@ -89,7 +89,13 @@ function displayProducts1(products) {
         // Add click event listener to each product grid item
         productCard.addEventListener('click', () => {
             // Redirect to product.html with product ID in the URL
-            window.location.href = `product.html?id=${product.ProductID}`;
+            console.log(userId);
+            if(userId){
+                window.location.href = `product.html?id=${product.ProductID}`;
+            }
+            else{
+                alert('Please login to EcoMarket');
+            }
         });
         // console.log('V',product.ProductID);
         fetch(`fetch_product_reviews.php?id=${product.ProductID}`)

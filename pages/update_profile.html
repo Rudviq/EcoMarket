@@ -33,7 +33,7 @@
             font-weight: bold;
         }
 
-        .update-btn {
+        .update-btn,.edit-btn {
             background-color: #4CAF50;
             color: white;
             padding: 14px 20px;
@@ -123,6 +123,14 @@
             updateBtn.style.display = 'block';
         });
 
+        updateBtn.addEventListener('click',function(){
+            console.log('Rudviqklasbsfa');
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+            editBtn.style.display = 'block';
+            updateBtn.style.display = 'none';
+        })
+
         document.addEventListener('DOMContentLoaded', function () {
             fetchUserDetails();
         });
@@ -150,6 +158,7 @@
             }
 
             const userId = sessionStorage.getItem('user_id');
+   
             const updatedUsername = document.getElementById('username').value;
             const updatedEmail = document.getElementById('email').value;
             const updatedLastName = document.getElementById('lastname').value;
@@ -192,8 +201,8 @@
 
     </script>
     <script src="../scripts/userName.js"></script>
-    <!-- <script>const userId = sessionStorage.getItem('user_id');</script>
-     -->
+    <!-- <script>const userId = sessionStorage.getItem('user_id');</script> -->
+    
      <script src="../scripts/navbar.js"></script>
      <script>showNavBar(userId);</script>
 
