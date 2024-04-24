@@ -5,18 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - EcoMarket: Handcrafted Materials</title>
   <link rel="stylesheet" href="../styles/styles_about.css">
+  <style>
+    /* Style the dropdown menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="container">
       <h1>EcoMarket</h1>
-      <nav>
-        <ul>
-          <li><a href="homePage.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+      <nav id="q">
+        
       </nav>
     </div>
   </header>
@@ -54,7 +80,11 @@
     </section>
   
   </main>
-
+  <script>const userId = sessionStorage.getItem('user_id');</script>
+  <script src="../scripts/logout.js"></script>
+  <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/userName.js"></script>
+  <script>showNavBar(userId);</script>
   <footer>
     <div class="container">
       <p>&copy; 2024 EcoMarket. All rights reserved.</p>

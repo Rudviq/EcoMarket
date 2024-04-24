@@ -11,6 +11,37 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* Style the dropdown menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body>
 <header>
@@ -19,13 +50,8 @@
         <img src="../assets/logo.png" class="logo">
         <h1>EcoMarket</h1>
     </div>
-        <nav>
-            <ul>
-                <li><a href="homePage.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+        <nav id="q">
+            
         </nav>
     </div>
 </header>
@@ -79,10 +105,15 @@
     </div>
   </footer>
   
-  <script src="../scripts/scripts_choose_category.js?v=1"></script>
+  <script>const userId = sessionStorage.getItem('user_id');</script>
+  <!-- <script src="../scripts/scripts_choose_category.js?v=1"></script> -->
   <script src="../scripts/product.js"></script>
   <script src="../scripts/demo.js"></script>
-  <script src="../scripts/comments.js"></script>
+  <!-- <script src="../scripts/comments.js"></script> -->
   <script src="../scripts/load_cart_items.js"></script>
+  <script src="../scripts/logout.js"></script>
+  <script src="../scripts/userName.js"></script>
+  <script src="../scripts/navbar.js"></script>
+  <script>showNavBar(userId);</script>
 </body>
 </html>

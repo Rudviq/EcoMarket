@@ -1,0 +1,36 @@
+
+/* Upload product form */
+.upload-form {
+    width: 50%;
+  }
+  
+  .upload-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .upload-form input[type="text"],
+  .upload-form input[type="number"],
+  .upload-form textarea,
+  .upload-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .upload-form textarea {
+    resize: vertical;
+  }
+  
+  .upload-form button {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .upload-form button:hover {
+    background-color: #45a049;
+  }

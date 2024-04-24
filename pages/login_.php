@@ -18,16 +18,16 @@
           <p class="signup_success"> <?php echo $_GET['signup_success']; ?></p>
         <?php }?>
         
-        <input name ="email" type="email" placeholder="Email" required>
-        <input name="password" type="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <input name ="email" type="email" placeholder="Email" id="email" required>
+        <input name="password" type="password" placeholder="Password" id="password" required>
+        <button type="submit" id="lgnBtn">Login</button>
         <p>Don't have an account? <a href="signup_.php" id="signup-link">Sign Up</a></p>
         
       </form>
+      
     </div>
     
   </div>
-
-  <!-- <script src="../scripts/scripts.js"></script> -->
+ 
 </body>
 </html>

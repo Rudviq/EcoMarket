@@ -1,16 +1,35 @@
 let cartItems = [];
 let c = 0;
 
+
 document.addEventListener('DOMContentLoaded', function() {
+  
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
-
   // Fetch product details using the retrieved product ID
   fetchProductReviews(productId);
-  fetchProductDetails(productId);
-  loadCartItems();
+  // fetchProductDetails(productId);
+  // loadCartItems();
+
+  fetch(`fetch_user_details.php?id=${userId}`)
+    .then(response => response.json())
+    .then(user => {
+      // Populate HTML elements with product details
+        // console.log("Qwerty");
+        if (user.isAdmin === '1') {
+            
+          fetchProductDetailsArt(productId);
+          sideBarRight = document.getElementById('sidebarright');
+          sideBarRight.style.display = "none";
+        } else {
+          fetchProductDetails(productId);
+          loadCartItems();
+        }
+    })
+    .catch(error => console.error('Error fetching user details:', error));
+
   
-  });
+});
   
   function loadCartItems() {
     // Retrieve cart items from localStorage
@@ -26,62 +45,92 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 
-  function fetchProductDetails(productId) {
-    // Fetch product details from the server using AJAX
-    fetch(`fetch_product_details.php?id=${productId}`)
-      .then(response => response.json())
-      .then(product => {
-        // Populate HTML elements with product details
-        const productDetailsContainer = document.getElementById('product-details');
-        productDetailsContainer.innerHTML = `
-          <img src="../assets/${product.Image}" alt="${product.Title}">
-          <div class="details">
-            <h2>${product.Title}</h2>
-            <p>Description: ${product.Description}</p>
-            <p class="price">Price: $${product.Price}</p>
-            <p class="rating" id="product-rating"></p>
-            <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
-            <button onclick="addToCart('${product.Title}','${product.Image}',${product.Price})">Add to Cart</button>
-            <button >Continue Shopping</button>
-            <br>
-            <p class="avail"> Available Stock:  ${product.Stock}</p>
+function fetchProductDetails(productId) {
+  // Fetch product details from the server using AJAX
+  fetch(`fetch_product_details.php?id=${productId}`)
+    .then(response => response.json())
+    .then(product => {
+      // Populate HTML elements with product details
+      const productDetailsContainer = document.getElementById('product-details');
+      productDetailsContainer.innerHTML = `
+        <img src="../assets/${product.Image}" alt="${product.Title}">
+        <div class="details">
+          <h2>${product.Title}</h2>
+          <p>Description: ${product.Description}</p>
+          <p>Artisan: ${product.ArtisanName}</p>
+          <p class="price">Price: $${product.Price}</p>
+          <p class="rating" id="product-rating"></p>
+          <p class="quant" >Quantity: <input type=number min="0" max="${product.Stock}" id="quantity"></p>
+          <button onclick="addToCart('${product.ProductID}','${product.Title}','${product.Image}','${product.Price}',${product.Stock})">Add to Cart</button>
+          <button onclick="continueShoppingBtn()">Continue Shopping</button>
+          <br>
+          <p class="avail"> Available Stock:  ${product.Stock}</p>
 
-          </div>
-      `;
-        // Display star rating
-        const ratingContainer = document.getElementById('product-rating');
-        ratingContainer.innerHTML = c;
-       
-      })
-      .catch(error => console.error('Error fetching product details:', error));
-  }
-
-  function addToCart(title,image, price) {
-    // Get the quantity input value
-    const quantityInput = document.getElementById('quantity');
-    const quantity = parseInt(quantityInput.value);
-    
-    if(quantity>0){
-      // Add the selected product to the cart array
-      cartItems.push({ title, price,image, quantity});
+        </div>
+    `;
+      // Display star rating
+      const ratingContainer = document.getElementById('product-rating');
+      ratingContainer.innerHTML = c;
       
+    })
+    .catch(error => console.error('Error fetching product details:', error));
+}
+// const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+//   if (continueShoppingBtn) {
+//     continueShoppingBtn.addEventListener('click', function() {
+//       // Redirect the user to the shop.html page
+//       console.log("Bhavsar");
+//       window.location.href = 'shop.html';
+//     });
+//   }
+
+function continueShoppingBtn(){
+        window.location.href = 'shop.html';
+}
+
+
+function addToCart(id,title,image, price,stock) {
+  // Get the quantity input value 
+  const quantityInput = document.getElementById('quantity');
+  const quantity = parseInt(quantityInput.value);
+  id = parseInt(id);
+
+  stock = parseInt(stock);
+
+  const existingCartItemIndex = cartItems.findIndex(item => item.id === id && item.userId === userId);
+
+  if (existingCartItemIndex !== -1) {
+        // If the product is already in the cart, update its quantity
+        if((cartItems[existingCartItemIndex].quantity + quantity) <=stock){
+          cartItems[existingCartItemIndex].quantity += quantity;
+        }
+  } else {
+    if(quantity>0 && quantity<=stock){
+
+        // If the product is not in the cart, add it as a new item
+        cartItems.push({ id, title, price, image, quantity, userId });
     }
-    
-    // Display the cart items in the sidebar
-    displayCartItems();
-    saveCartItems();
+    else{
+      alert("Enter Quantity Less than the available stock");
+    }
   }
 
-  function saveCartItems() {
-    // Save cart items to localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  // Display the cart items in the sidebar
+  displayCartItems();
+  saveCartItems();
 }
-  function displayCartItems() {
-    const cartList = document.getElementById('cart-items1');
-    cartList.innerHTML = ''; // Clear existing cart items
-  
-    cartItems.forEach((item,index) => {
-     
+
+function saveCartItems() {
+  // Save cart items to localStorage
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+function displayCartItems() {
+  const cartList = document.getElementById('cart-items1');
+  cartList.innerHTML = ''; // Clear existing cart items
+
+  cartItems.forEach((item,index) => {
+    if(item.userId===userId){
       const cartItem   = document.createElement('div');
       cartItem.classList.add('cart-item');
 
@@ -104,12 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const title = document.createElement('h3');
       title.textContent = item.title;
       cartItem2.appendChild(title);
-  
+
       // Product price
       const price = document.createElement('p');
       price.textContent = `$${item.price}`;
       cartItem2.appendChild(price);
-  
+
       cartItem.appendChild(imgTitleItem);
       // Quantity controls
       const quantityControl = document.createElement('div');
@@ -142,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
       quantityControl.appendChild(increaseLink);
       
       cartItem.appendChild(quantityControl);
-  
+
       // Remove button
       const removeButton = document.createElement('button');
       removeButton.textContent = 'Remove';
@@ -150,9 +199,64 @@ document.addEventListener('DOMContentLoaded', function() {
       cartItem.appendChild(removeButton);
 
       cartList.appendChild(cartItem);
-    });
-  }
+    }
+  });
+}
 
+function fetchProductDetailsArt(productId){
+      fetch(`fetch_product_details.php?id=${productId}`)
+      .then(response => response.json())
+      .then(product => {
+        // Populate HTML elements with product details
+        const productDetailsContainer = document.getElementById('product-details');
+        productDetailsContainer.innerHTML = `
+          <img src="../assets/${product.Image}" alt="${product.Title}">
+          <div class="details">
+            <h2 style="margin-top:60px;">${product.Title}</h2>
+            <p>Description: ${product.Description}</p>
+            <p class="price">Price: $${product.Price}</p>
+            <p class="rating" id="product-rating"></p>
+            <p class="quant" >Update Stock: <input type=number min="0"  id="update-stock"></p>
+            <button onclick="updateStock(${product.ProductID})">Update Stock</button>
+            <p class="avail"> Available Stock:  ${product.Stock}</p>
+
+          </div>
+      `;
+        // Display star rating
+        const ratingContainer = document.getElementById('product-rating');
+        ratingContainer.innerHTML = c;
+        
+      })
+      .catch(error => console.error('Error fetching product details:', error));
+}
+
+function updateStock(pid){
+    
+    const upstock = parseInt(document.getElementById("update-stock").value);
+    console.log(upstock);
+      if(upstock>0){
+          const sql = `UPDATE products SET Stock = Stock + ${upstock} WHERE productId = ${pid}`;
+
+          // Execute the SQL query (you need to send this data to your server and handle database operations there)
+          fetch('insert_feedback.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ sql: sql })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Stock Updated successfully:', data);
+              window.location.href = 'homePage_artisan.html';
+              // Optionally, you can display a success message or update the UI
+          })
+          .catch(error => {
+              console.error('Error inserting STOCK:', error);
+              // Optionally, you can display an error message or handle the error
+          });
+        }
+}
 // Function to remove a cart item
 function removeCartItem(index) {
   
@@ -250,3 +354,11 @@ function fetchProductReviews(productId){
       .catch(error => console.error('Error fetching product details:', error));
   
 }
+
+ // Add event listener to the "Go to Cart" button
+ document.getElementById('go-to-cart').addEventListener('click', function() {
+  // Redirect the user to the cart page (replace 'cart.html' with your actual cart page URL)
+  console.log("Rudviq");
+  window.location.href = 'cart_demo.html';
+});
+

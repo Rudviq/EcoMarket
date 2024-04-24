@@ -39,7 +39,7 @@
 
 
 function generateStarRating(rating) {
-
+  console.log(6);
   const starsTotal = 5;
 
   const starPercentage = (rating/ starsTotal)*100;

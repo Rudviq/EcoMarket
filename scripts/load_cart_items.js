@@ -1,11 +1,16 @@
 let storedCartItems = [];
+var len;
+var totalItemPrice;
+// const userId = sessionStorage.getItem('user_id');
+console.log(userId);
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve cart items from localStorage
     storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
     // console.log(storedCartItems);
 
     if (storedCartItems && storedCartItems.length > 0) {
-        const len = storedCartItems.length;
+        const filteredCartItems = storedCartItems.filter(item => item.userId == userId);
+        len = filteredCartItems.length;
         const shoppingTitle = document.getElementById('shop-title');
         shoppingTitle.innerHTML = `
             <div class="col"><h4><b>Shopping Cart</b></h4></div>
@@ -15,30 +20,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const cartList = document.getElementById('cart-items_final');
         var total_item_price =0;
         storedCartItems.forEach((item,index) => {
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('row', 'main', 'align-items-center', 'border-top', 'border-bottom');
+            if(item.userId === userId){
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('row', 'main', 'align-items-center', 'border-top', 'border-bottom');
 
-            cartItem.innerHTML = `
-                <div class="col-2"><img class="img-fluid" src="../assets/${item.image}"></div>
-                <div class="col">
-                    <div class="row text-muted">${item.title}</div>
-                    <!-- <div class="row">${item.description}</div>-->
-                </div>
-                <div class="col">
-                    <a href="#" style="text-decoration:none; color:black">-</a>
-                    <a href="#" class="border" style="text-decoration:none; color:black">${item.quantity}</a>
-                    <a href="#" style="text-decoration:none; color:black">+</a>
-                </div>
-                <div class="col">&dollar; ${item.price} <span class="close" onclick="removeCartItems(${index})">&#10005;</span></div>
-            `;
+                cartItem.innerHTML = `
+                    <div class="col-2"><img class="img-fluid" src="../assets/${item.image}"></div>
+                    <div class="col">
+                        <div class="row text-muted">${item.title}</div>
+                        <!-- <div class="row">${item.description}</div>-->
+                    </div>
+                    <div class="col">
+                        <a href="#" style="text-decoration:none; color:black">-</a>
+                        <a href="#" class="border" style="text-decoration:none; color:black">${item.quantity}</a>
+                        <a href="#" style="text-decoration:none; color:black">+</a>
+                    </div>
+                    <div class="col">&dollar; ${item.price} <span class="close" onclick="removeCartItems(${index})">&#10005;</span></div>
+                `;
 
-            total_item_price = total_item_price + item.price * item.quantity;
+                total_item_price = total_item_price + item.price * item.quantity;
 
-            cartList.appendChild(cartItem);
+                cartList.appendChild(cartItem);
+            }
         });
         
         const shoppingCart = document.getElementById('total-item-price');
-        const totalItemPrice = total_item_price.toFixed(2);
+        totalItemPrice = total_item_price.toFixed(2);
         shoppingCart.innerHTML = `
             <div class="col" style="padding-left:0;">ITEMS ${len}</div>
             <div class="col text-right">&dollar; ${totalItemPrice}</div>
@@ -58,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get the value of the input field
         const code = this.value.trim();
         // Check if the entered code matches the discount code
-        if (code === 'CSE6324') {
+        if (code === 'CSE6324' && totalItemPrice > 100) {
             // Apply the discount (e.g., 10% off)
-            applyDiscount(10); // Pass the discount percentage as an argument
+            applyDiscount(50); // Pass the discount percentage as an argument
         } else {
             // Remove the discount if the code doesn't match
             applyDiscount(0);
@@ -81,7 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     document.getElementById('checkoutButton').addEventListener('click', function() {
+        if(len>0){
         window.location.href = 'checkout.html';
+        }
+        else{
+            alert("Please select items to checkout");
+        }
     });
 });
 
