@@ -50,14 +50,17 @@ The Page contains feature to select price range like High-to-Loe and Low-to-High
 
 ### 7. Star Review and User Comments Page
 Dynamic Star rating displayed for each product by taking mean value of the ratings and comment section to display User reviews
+
 <img src="https://github.com/Rudviq/EcoMarket/assets/60641746/fbd20104-74e9-473e-bc72-967c8a613f3e" style="width:600px;">
 
 ### 8. Shopping Cart SideBar
 The Shopping cart can be accessible by just hovering to the extreme right side of the Page. 
+
 <img src="https://github.com/Rudviq/EcoMarket/assets/60641746/48c75b62-986b-4052-864e-9e062153c267" style="width:600px;">
 
 ### 9. Checkout Page
 Checkout Page consist of the price description of each items and the total price. Promo code can be inserted to reduce the price value of items
+
 <img src="https://github.com/Rudviq/EcoMarket/assets/60641746/2c1deb7e-8db0-46de-8278-6c018c751019" style="width:600px;">
 
 ### 10. Payment Page
